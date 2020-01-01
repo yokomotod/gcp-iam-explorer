@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@gcp-iam-explorer/batch",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^46.0.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es2020": true
+    }
+  }
+}
