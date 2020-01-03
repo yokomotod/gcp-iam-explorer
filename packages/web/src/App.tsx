@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ScrollToTop: React.FC = () => {
-  const history = useHistory()
+  const history = useHistory();
 
   React.useEffect(() => {
     if (history.action === "PUSH") {
@@ -43,7 +43,7 @@ const ScrollToTop: React.FC = () => {
   }, [history.location.pathname, history.action]);
 
   return null;
-}
+};
 
 const App: React.FC = () => {
   const classes = useStyles();
@@ -60,7 +60,7 @@ const App: React.FC = () => {
         return;
       }
 
-      const roles: Role[] = await response.json()
+      const roles: Role[] = await response.json();
 
       setRoles(roles);
     })();
@@ -104,7 +104,7 @@ const App: React.FC = () => {
           <Container maxWidth={false} className={classes.container}>
             <Switch>
               <Route path="/" exact>
-                <ServiceTable roles={roles}/>
+                <ServiceTable roles={roles} />
               </Route>
               <Route path="/services" exact>
                 <Redirect to="/" />

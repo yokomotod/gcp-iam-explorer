@@ -175,7 +175,10 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
   );
 };
 
-const makeDiff = (leftRole: Role | undefined, rightRole: Role | undefined) => {
+const makeDiff = (
+  leftRole: Role | undefined,
+  rightRole: Role | undefined,
+): Diff | undefined => {
   if (leftRole === undefined || rightRole === undefined) {
     return;
   }

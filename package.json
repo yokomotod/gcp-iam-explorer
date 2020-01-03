@@ -11,7 +11,35 @@
     "prettier": "^1.19.1"
   },
   "eslintConfig": {
-    "extends": "plugin:prettier/recommended"
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "extends": [
+          "plugin:@typescript-eslint/eslint-recommended",
+          "plugin:@typescript-eslint/recommended",
+          "plugin:@typescript-eslint/recommended-requiring-type-checking",
+          "prettier/@typescript-eslint"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "rules": {
+          "@typescript-eslint/explicit-function-return-type": [
+            "warn",
+            {
+              "allowExpressions": true
+            }
+          ]
+        }
+      }
+    ]
   },
   "prettier": {
     "trailingComma": "all"

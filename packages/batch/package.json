@@ -7,7 +7,6 @@
     "googleapis": "^46.0.0"
   },
   "eslintConfig": {
-    "extends": "eslint:recommended",
     "env": {
       "node": true,
       "es2020": true
