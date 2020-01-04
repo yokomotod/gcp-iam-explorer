@@ -1,14 +1,7 @@
-import {
-  AppBar,
-  Container,
-  Link,
-  makeStyles,
-  Toolbar,
-} from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 import React from "react";
 import {
   BrowserRouter as Router,
-  Link as RouterLink,
   Redirect,
   Route,
   Switch,
@@ -16,25 +9,13 @@ import {
 } from "react-router-dom";
 import { PermissionTable, ServiceTable } from "./Browse";
 import Compare from "./Compare";
-import { ReactComponent as GithubLogo } from "./github.svg";
+import Header from "./Header";
 import Splash from "./Splash";
-import { ReactComponent as TwitterLogo } from "./twitter.svg";
 import { Role } from "./types";
 
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
-  },
-  navItem: {
-    marginLeft: theme.spacing(3),
-  },
-  twitter: {
-    height: 24,
-    fill: "currentColor",
-  },
-  github: {
-    height: 24,
-    fill: "currentColor",
   },
   appBarSpacer: theme.mixins.toolbar,
   container: {
@@ -84,48 +65,7 @@ const App: React.FC = () => {
     <Router>
       <ScrollToTop />
       <div className={classes.grow}>
-        <AppBar>
-          <Toolbar>
-            <Link component={RouterLink} to="/" color="inherit" variant="h6">
-              GCP IAM Explorer
-            </Link>
-            <Link
-              component={RouterLink}
-              to="/"
-              color="inherit"
-              variant="body1"
-              className={classes.navItem}
-            >
-              Browse
-            </Link>
-            <Link
-              component={RouterLink}
-              to="/compare"
-              color="inherit"
-              variant="body1"
-              className={classes.navItem}
-            >
-              Compare
-            </Link>
-            <div className={classes.grow} />
-            <Link
-              href="https://twitter.com/yokomotod"
-              target="_blank"
-              color="inherit"
-              className={classes.navItem}
-            >
-              <TwitterLogo className={classes.twitter} />
-            </Link>
-            <Link
-              href="https://github.com/yokomotod/gcp-iam-explorer"
-              target="_blank"
-              color="inherit"
-              className={classes.navItem}
-            >
-              <GithubLogo className={classes.github} />
-            </Link>
-          </Toolbar>
-        </AppBar>
+        <Header />
         <main>
           <div className={classes.appBarSpacer} />
           <Container maxWidth={false} className={classes.container}>

@@ -101,18 +101,24 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
                 <Table
                   size="small"
                   aria-label="simple table"
-                  style={{ tableLayout: "fixed" }}
+                  // reset `width: "100%"` for mobile collapsion
+                  // `minWidth: "100%"` to keep full width on desktip
+                  style={{
+                    tableLayout: "fixed",
+                    width: "auto",
+                    minWidth: "100%",
+                  }}
                 >
                   <TableHead>
                     <TableRow>
                       <TableCell>
                         <Typography color="primary" variant="subtitle2">
-                          {leftRole.name} Only
+                          {`${leftRole.name} Only`}
                         </Typography>
                       </TableCell>
                       <TableCell>
                         <Typography color="primary" variant="subtitle2">
-                          {rightRole.name} Only
+                          {`${rightRole.name} Only`}
                         </Typography>
                       </TableCell>
                     </TableRow>
