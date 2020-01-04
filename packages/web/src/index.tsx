@@ -1,15 +1,47 @@
+import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
 import ReactDOM from "react-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
-import "./index.css";
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import App from "./App";
+import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+
+const ScrollToTop: React.FC = () => {
+  const history = useHistory();
+
+  React.useEffect(() => {
+    if (history.action === "PUSH") {
+      window.scrollTo(0, 0);
+    }
+  }, [history.location.pathname, history.action]);
+
+  return null;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const gtag: any;
+const Tracker: React.FC = () => {
+  const history = useHistory();
+
+  React.useEffect(() =>
+    history.listen((_location, _action) => {
+      if (process.env.NODE_ENV === "production") {
+        gtag("event", "page_view");
+      }
+    }),
+  );
+
+  return null;
+};
 
 ReactDOM.render(
   <>
     <CssBaseline />
-    <App />
+    <Router>
+      <ScrollToTop />
+      <Tracker />
+      <App />
+    </Router>
   </>,
   document.getElementById("root"),
 );

@@ -1,12 +1,6 @@
 import { Container, makeStyles } from "@material-ui/core";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { PermissionTable, ServiceTable } from "./Browse";
 import Compare from "./Compare";
 import Header from "./Header";
@@ -23,18 +17,6 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(4),
   },
 }));
-
-const ScrollToTop: React.FC = () => {
-  const history = useHistory();
-
-  React.useEffect(() => {
-    if (history.action === "PUSH") {
-      window.scrollTo(0, 0);
-    }
-  }, [history.location.pathname, history.action]);
-
-  return null;
-};
 
 const App: React.FC = () => {
   const classes = useStyles();
@@ -62,31 +44,28 @@ const App: React.FC = () => {
   }
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className={classes.grow}>
-        <Header />
-        <main>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth={false} className={classes.container}>
-            <Switch>
-              <Route path="/" exact>
-                <ServiceTable roles={roles} />
-              </Route>
-              <Route path="/services" exact>
-                <Redirect to="/" />
-              </Route>
-              <Route path="/services/:service" exact>
-                <PermissionTable roles={roles} />
-              </Route>
-              <Route path="/compare" exact>
-                <Compare roles={roles} />
-              </Route>
-            </Switch>
-          </Container>
-        </main>
-      </div>
-    </Router>
+    <div className={classes.grow}>
+      <Header />
+      <main>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth={false} className={classes.container}>
+          <Switch>
+            <Route path="/" exact>
+              <ServiceTable roles={roles} />
+            </Route>
+            <Route path="/services" exact>
+              <Redirect to="/" />
+            </Route>
+            <Route path="/services/:service" exact>
+              <PermissionTable roles={roles} />
+            </Route>
+            <Route path="/compare" exact>
+              <Compare roles={roles} />
+            </Route>
+          </Switch>
+        </Container>
+      </main>
+    </div>
   );
 };
 
