@@ -62,6 +62,7 @@ const App: React.FC = () => {
             <Route path="/compare" exact>
               <Compare roles={roles} />
             </Route>
+            {/* TODO: 404.html */}
           </Switch>
         </Container>
       </main>

@@ -1,20 +1,21 @@
 import {
   Box,
-  TextField,
-  TableContainer,
+  Grid,
   Paper,
   Table,
   TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  Grid,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import { Autocomplete, createFilterOptions } from "@material-ui/lab";
-import React from "react";
-import { Role } from "./types";
 import _ from "lodash";
+import React from "react";
+import { Helmet } from "react-helmet";
+import { Role } from "./types";
 
 type Diff = {
   leftOnly: string[];
@@ -65,6 +66,11 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
 
   return (
     <Grid container spacing={3}>
+      <Helmet>
+        <title>Compare : GCP IAM Explorer</title>
+        <meta property="og:title" content="Compare : GCP IAM Explorer" />
+      </Helmet>
+
       <Grid item xs={6}>
         <Autocomplete
           options={rolesPlusAll}

@@ -1,6 +1,7 @@
 import {
   Box,
   Link,
+  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -8,10 +9,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  makeStyles,
 } from "@material-ui/core";
 import _ from "lodash";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { Role } from "./types";
 
@@ -53,6 +54,10 @@ export const PermissionTable: React.FC<RoleTableProps> = ({ roles }) => {
 
   return (
     <Box component={Paper} p={2}>
+      <Helmet>
+        <title>{service} : GCP IAM Explorer</title>
+        <meta property="og:title" content={`${service} : GCP IAM Explorer`} />
+      </Helmet>
       <TableContainer>
         <Table className={classes.table} size="small" aria-label="simple table">
           <TableHead>
@@ -100,6 +105,10 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => {
 
   return (
     <Box component={Paper} p={2}>
+      <Helmet>
+        <title>GCP IAM Explorer</title>
+        <meta property="og:title" content="GCP IAM Explorer" />
+      </Helmet>
       <TableContainer>
         <Table size="small" aria-label="simple table">
           <TableHead>
