@@ -5,6 +5,13 @@ import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import * as Sentry from "@sentry/browser";
+
+if (process.env.NODE_ENV === "production") {
+  Sentry.init({
+    dsn: "https://ed7ac40a58ca45968f9aead6489400a7@sentry.io/1871947",
+  });
+}
 
 const ScrollToTop: React.FC = () => {
   const history = useHistory();
