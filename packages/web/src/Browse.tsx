@@ -14,6 +14,7 @@ import _ from "lodash";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link as RouterLink, useParams } from "react-router-dom";
+import NotFound from "./NotFound";
 import { Role } from "./types";
 
 const useStyles = makeStyles(theme => ({
@@ -51,6 +52,10 @@ export const PermissionTable: React.FC<RoleTableProps> = ({ roles }) => {
     .uniq()
     .sort()
     .value();
+
+  if (filteredRoles.length === 0) {
+    return <NotFound />;
+  }
 
   return (
     <Box component={Paper} p={2}>

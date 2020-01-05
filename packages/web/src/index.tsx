@@ -37,14 +37,12 @@ const Tracker: React.FC = () => {
 const rootElement = document.getElementById("root");
 const renderOrHydrate = rootElement?.hasChildNodes() ? render : hydrate;
 renderOrHydrate(
-  <>
+  <Router>
     <CssBaseline />
-    <Router>
-      <ScrollToTop />
-      <Tracker />
-      <App />
-    </Router>
-  </>,
+    <ScrollToTop />
+    <Tracker />
+    <App />
+  </Router>,
   rootElement,
 );
 

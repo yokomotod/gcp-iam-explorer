@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { PermissionTable, ServiceTable } from "./Browse";
 import Compare from "./Compare";
 import Header from "./Header";
+import NotFound from "./NotFound";
 import Splash from "./Splash";
 import { Role } from "./types";
 
@@ -62,7 +63,9 @@ const App: React.FC = () => {
             <Route path="/compare" exact>
               <Compare roles={roles} />
             </Route>
-            {/* TODO: 404.html */}
+            <Route path="*">
+              <NotFound />
+            </Route>
           </Switch>
         </Container>
       </main>
