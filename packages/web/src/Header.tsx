@@ -79,7 +79,13 @@ const Header: React.FC = () => {
               <MenuIcon />
             </IconButton>
           </div>
-          <Link component={RouterLink} to="/" color="inherit" variant="h6">
+          <Link
+            component={RouterLink}
+            to="/"
+            color="inherit"
+            variant="h6"
+            underline="none"
+          >
             GCP IAM Explorer
           </Link>
           <div className={classes.sectionDesktop}>
@@ -107,7 +113,7 @@ const Header: React.FC = () => {
           <div className={classes.grow} />
           <Box>
             <Link
-              href="https://twitter.com/yokomotod"
+              href="https://twitter.com/yokomotod/status/1213784807471104000"
               target="_blank"
               color="inherit"
             >
