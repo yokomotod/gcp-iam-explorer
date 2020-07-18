@@ -8,7 +8,7 @@ import NotFound from "./NotFound";
 import Splash from "./Splash";
 import { Role } from "./types";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },

@@ -17,7 +17,7 @@ import { Link as RouterLink, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import { Role } from "./types";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   table: {
     width: "auto",
   },
@@ -43,12 +43,12 @@ export const PermissionTable: React.FC<RoleTableProps> = ({ roles }) => {
   const { service } = useParams<{ service: string }>();
 
   const filteredRoles = (service === "project"
-    ? roles.filter(role => specialRoleNames.includes(role.name))
-    : roles.filter(role => role.name.startsWith(`roles/${service}.`))
+    ? roles.filter((role) => specialRoleNames.includes(role.name))
+    : roles.filter((role) => role.name.startsWith(`roles/${service}.`))
   ).sort((a, b) => b.includedPermissions.length - a.includedPermissions.length);
 
   const relatedPermissons = _.chain(filteredRoles)
-    .flatMap(role => role.includedPermissions)
+    .flatMap((role) => role.includedPermissions)
     .uniq()
     .sort()
     .value();
@@ -68,7 +68,7 @@ export const PermissionTable: React.FC<RoleTableProps> = ({ roles }) => {
           <TableHead>
             <TableRow>
               <TableCell>Permission</TableCell>
-              {filteredRoles.map(role => (
+              {filteredRoles.map((role) => (
                 <TableCell key={role.name}>
                   <span className={classes.verticalText}>
                     {role.name.replace(`roles/${service}.`, "")}
@@ -78,10 +78,10 @@ export const PermissionTable: React.FC<RoleTableProps> = ({ roles }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {relatedPermissons.map(permission => (
+            {relatedPermissons.map((permission) => (
               <TableRow key={permission}>
                 <TableCell>{permission}</TableCell>
-                {filteredRoles.map(role => (
+                {filteredRoles.map((role) => (
                   <TableCell key={role.name}>
                     {role.includedPermissions.includes(permission) ? "✔" : ""}
                   </TableCell>
@@ -101,8 +101,8 @@ type ServiceTableProps = {
 
 export const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => {
   const servicesExceptProject = _.chain(roles)
-    .filter(role => !specialRoleNames.includes(role.name))
-    .map(role => role.name.split("/")[1].split(".")[0])
+    .filter((role) => !specialRoleNames.includes(role.name))
+    .map((role) => role.name.split("/")[1].split(".")[0])
     .uniq()
     .value();
 
@@ -124,15 +124,19 @@ export const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {services.map(service => {
+            {services.map((service) => {
               const relatedRoleNames =
                 service === "project"
-                  ? specialRoleNames.map(roleName =>
+                  ? specialRoleNames.map((roleName) =>
                       roleName.replace("roles/", ""),
                     )
                   : roles
-                      .filter(role => role.name.startsWith(`roles/${service}.`))
-                      .map(role => role.name.replace(`roles/${service}.`, ""));
+                      .filter((role) =>
+                        role.name.startsWith(`roles/${service}.`),
+                      )
+                      .map((role) =>
+                        role.name.replace(`roles/${service}.`, ""),
+                      );
 
               return (
                 <TableRow key={service}>

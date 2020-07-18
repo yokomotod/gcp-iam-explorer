@@ -37,7 +37,7 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
       name: "ALL PERMISSIONS",
       stage: "",
       includedPermissions: _.chain(roles)
-        .flatMap(role => role.includedPermissions)
+        .flatMap((role) => role.includedPermissions)
         .uniq()
         .sort()
         .value(),
@@ -46,10 +46,10 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
   ];
 
   const defaultLeftRole = roles.find(
-    role => role.name === "roles/appengine.serviceAdmin",
+    (role) => role.name === "roles/appengine.serviceAdmin",
   );
   const defaultRightRole = roles.find(
-    role => role.name === "roles/appengine.deployer",
+    (role) => role.name === "roles/appengine.deployer",
   );
 
   const [leftRole, setLeftRole] = React.useState<Role | undefined>(
@@ -74,28 +74,28 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
       <Grid item xs={6}>
         <Autocomplete
           options={rolesPlusAll}
-          getOptionLabel={role => role.name}
+          getOptionLabel={(role) => role.name}
           filterOptions={filterOptions}
           defaultValue={defaultLeftRole}
-          renderInput={params => (
+          renderInput={(params) => (
             <TextField {...params} variant="outlined" fullWidth />
           )}
           onInputChange={(_event, value, _reason) =>
-            setLeftRole(rolesPlusAll.find(role => role.name === value))
+            setLeftRole(rolesPlusAll.find((role) => role.name === value))
           }
         />
       </Grid>
       <Grid item xs={6}>
         <Autocomplete
           options={rolesPlusAll}
-          getOptionLabel={role => role.name}
+          getOptionLabel={(role) => role.name}
           filterOptions={filterOptions}
           defaultValue={defaultRightRole}
-          renderInput={params => (
+          renderInput={(params) => (
             <TextField {...params} variant="outlined" fullWidth />
           )}
           onInputChange={(_event, value, _reason) =>
-            setRightRole(rolesPlusAll.find(role => role.name === value))
+            setRightRole(rolesPlusAll.find((role) => role.name === value))
           }
         />
       </Grid>
@@ -134,7 +134,7 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
                     {_.range(
                       0,
                       Math.max(diff.leftOnly.length, diff.rightOnly.length) - 1,
-                    ).map(index => (
+                    ).map((index) => (
                       <TableRow key={index}>
                         <TableCell>
                           {diff.leftOnly[index] ||
@@ -166,7 +166,7 @@ const Compare: React.FC<CompareProps> = ({ roles }) => {
                   </TableHead>
                   <TableBody>
                     {diff.common.length > 0 ? (
-                      diff.common.map(permission => (
+                      diff.common.map((permission) => (
                         <TableRow key={permission}>
                           <TableCell>{permission}</TableCell>
                         </TableRow>

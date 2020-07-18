@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
-    "googleapis": "^46.0.0"
+    "googleapis": "^55.0.0"
   },
   "eslintConfig": {
     "env": {

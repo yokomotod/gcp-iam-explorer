@@ -16,7 +16,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { ReactComponent as GithubLogo } from "./github.svg";
 import { ReactComponent as TwitterLogo } from "./twitter.svg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
