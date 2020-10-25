@@ -25,6 +25,7 @@ const App: React.FC = () => {
   const [roles, setRoles] = React.useState<Role[]>([]);
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
       const response = await fetch("/roles.json");
 
@@ -34,7 +35,7 @@ const App: React.FC = () => {
         return;
       }
 
-      const roles: Role[] = await response.json();
+      const roles = (await response.json()) as Role[];
 
       setRoles(roles);
     })();

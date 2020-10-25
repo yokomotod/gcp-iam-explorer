@@ -37,7 +37,7 @@ type CompareProps = {
 };
 
 const useForceUpdate = (): (() => void) => {
-  const [, updateDummyState] = React.useState();
+  const [, updateDummyState] = React.useState<Record<string, unknown>>();
 
   return React.useCallback(() => updateDummyState({}), []);
 };
@@ -80,6 +80,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
   const [rightValue, setRightValue] = React.useState(rightRole.name);
 
   const onLeftInputChange = (
+    // eslint-disable-next-line @typescript-eslint/ban-types
     _event: React.ChangeEvent<{}>,
     value: string,
     _reason: AutocompleteInputChangeReason,
@@ -95,6 +96,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
   };
 
   const onRightInputChange = (
+    // eslint-disable-next-line @typescript-eslint/ban-types
     _event: React.ChangeEvent<{}>,
     value: string,
     _reason: AutocompleteInputChangeReason,
@@ -173,6 +175,7 @@ const findRole = (
 
   if (!role) {
     throw new Error(
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       `role not found: name="${name}" defaultName="${defaultName}`,
     );
   }

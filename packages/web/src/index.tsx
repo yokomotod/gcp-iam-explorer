@@ -1,11 +1,11 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
+import * as Sentry from "@sentry/browser";
 import React from "react";
 import { hydrate, render } from "react-dom";
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import * as serviceWorker from "./serviceWorker";
-import * as Sentry from "@sentry/browser";
+import reportWebVitals from "./reportWebVitals";
 
 if (process.env.NODE_ENV === "production") {
   Sentry.init({
@@ -26,7 +26,7 @@ const ScrollToTop: React.FC = () => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const gtag: any;
+declare const gtag: (...arg: any) => any;
 const Tracker: React.FC = () => {
   const history = useHistory();
 
@@ -44,16 +44,18 @@ const Tracker: React.FC = () => {
 const rootElement = document.getElementById("root");
 const renderOrHydrate = rootElement?.hasChildNodes() ? render : hydrate;
 renderOrHydrate(
-  <Router>
-    <CssBaseline />
-    <ScrollToTop />
-    <Tracker />
-    <App />
-  </Router>,
+  <React.StrictMode>
+    <Router>
+      <CssBaseline />
+      <ScrollToTop />
+      <Tracker />
+      <App />
+    </Router>
+  </React.StrictMode>,
   rootElement,
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
