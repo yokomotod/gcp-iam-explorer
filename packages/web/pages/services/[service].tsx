@@ -45,10 +45,6 @@ const PermissionTable: React.FC<RoleTableProps> = ({ service, roles }) => {
     .sort()
     .value();
 
-  // if (filteredRoles.length === 0) {
-  //   return <NotFound />;
-  // }
-
   return (
     <Layout>
       <Box component={Paper} p={2}>
