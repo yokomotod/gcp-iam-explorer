@@ -89,17 +89,21 @@ const PermissionTable: React.FC<RoleTableProps> = ({ service, roles }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+type PathParams = {
+  service: string;
+};
+
+export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
   return {
     paths: services.map((service) => ({ params: { service } })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<RoleTableProps, PathParams> = async ({ params }) => {
   return {
     props: {
-      service: params.service,
+      service: params!.service,
       roles,
     },
   };

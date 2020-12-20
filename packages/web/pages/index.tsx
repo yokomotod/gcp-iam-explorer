@@ -68,7 +68,7 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
   </Layout>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<ServiceTableProps> = async () => {
   return {
     props: {
       roles,

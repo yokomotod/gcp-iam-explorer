@@ -1,6 +1,6 @@
 type Role = {
   name: string;
-  stage: string;
+  // stage: string;
   includedPermissions: string[];
 };
 
