@@ -13,8 +13,8 @@ import {
 import { Menu as MenuIcon } from "@material-ui/icons";
 import React from "react";
 import Link from "./Link";
-import { ReactComponent as GithubLogo } from "./github.svg";
-import { ReactComponent as TwitterLogo } from "./twitter.svg";
+import GithubLogo from "./github.svg";
+import TwitterLogo from "./twitter.svg";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
