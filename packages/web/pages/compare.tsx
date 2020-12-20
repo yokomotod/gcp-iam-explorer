@@ -17,10 +17,13 @@ import {
   createFilterOptions,
 } from "@material-ui/lab";
 import _ from "lodash";
+import { GetStaticProps } from "next";
+import Head from "next/head";
 import React from "react";
-import { Helmet } from "react-helmet";
-import { Role } from "./types";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+import Layout from "../components/Layout";
+import { roles } from "../lib/roles";
+import Role from "../types/Role";
 
 type Diff = {
   leftOnly: string[];
@@ -45,10 +48,10 @@ const useForceUpdate = (): (() => void) => {
 const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
   const forceUpdate = useForceUpdate();
 
-  const history = useHistory();
-  const searchParams = new URLSearchParams(history.location.search);
-  const leftParam = searchParams.get("left");
-  const rightParam = searchParams.get("right");
+  // const history = useHistory();
+  // const searchParams = new URLSearchParams(history.location.search);
+  const leftParam = null; // searchParams.get("left");
+  const rightParam = null; // searchParams.get("right");
 
   const rolesPlusAll: Role[] = React.useMemo(
     () => [
@@ -89,9 +92,9 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newLeftRole = rolesPlusAll.find((role) => role.name === value);
     if (newLeftRole && newLeftRole.name !== leftRole?.name) {
-      history.push({
-        search: buildSearchParams(newLeftRole, rightRole),
-      });
+      // history.push({
+      //   search: buildSearchParams(newLeftRole, rightRole),
+      // });
     }
   };
 
@@ -105,19 +108,19 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newRightRole = rolesPlusAll.find((role) => role.name === value);
     if (newRightRole && newRightRole.name !== rightRole?.name) {
-      history.push({
-        search: buildSearchParams(leftRole, newRightRole),
-      });
+      // history.push({
+      //   search: buildSearchParams(leftRole, newRightRole),
+      // });
     }
   };
 
-  React.useEffect(
-    () =>
-      history.listen((_location) => {
-        forceUpdate();
-      }),
-    [history, forceUpdate],
-  );
+  // React.useEffect(
+  //   () =>
+  //     history.listen((_location) => {
+  //       forceUpdate();
+  //     }),
+  //   [history, forceUpdate],
+  // );
 
   const diff = React.useMemo(() => makeDiff(leftRole, rightRole), [
     leftRole,
@@ -125,42 +128,48 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
   ]);
 
   return (
-    <Grid container spacing={3}>
-      <Helmet>
-        <title>Compare : GCP IAM Explorer</title>
-        <meta property="og:title" content="Compare : GCP IAM Explorer" />
-      </Helmet>
+    <Layout>
+      <Grid container spacing={3}>
+        <Head>
+          <title>Compare : GCP IAM Explorer</title>
+          <meta property="og:title" content="Compare : GCP IAM Explorer" />
+        </Head>
 
-      <Grid item xs={6}>
-        <Autocomplete
-          options={rolesPlusAll}
-          getOptionLabel={(role) => role.name}
-          filterOptions={filterOptions}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" fullWidth />
-          )}
-          value={leftRole}
-          inputValue={leftValue}
-          onInputChange={onLeftInputChange}
-        />
+        <Grid item xs={6}>
+          <Autocomplete
+            options={rolesPlusAll}
+            getOptionLabel={(role) => role.name}
+            filterOptions={filterOptions}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" fullWidth />
+            )}
+            value={leftRole}
+            inputValue={leftValue}
+            onInputChange={onLeftInputChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Autocomplete
+            options={rolesPlusAll}
+            getOptionLabel={(role) => role.name}
+            filterOptions={filterOptions}
+            renderInput={(params) => (
+              <TextField {...params} variant="outlined" fullWidth />
+            )}
+            value={rightRole}
+            inputValue={rightValue}
+            onInputChange={onRightInputChange}
+          />
+        </Grid>
+        {leftRole && rightRole && diff && (
+          <CompareResult
+            leftRole={leftRole}
+            rightRole={rightRole}
+            diff={diff}
+          />
+        )}
       </Grid>
-      <Grid item xs={6}>
-        <Autocomplete
-          options={rolesPlusAll}
-          getOptionLabel={(role) => role.name}
-          filterOptions={filterOptions}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" fullWidth />
-          )}
-          value={rightRole}
-          inputValue={rightValue}
-          onInputChange={onRightInputChange}
-        />
-      </Grid>
-      {leftRole && rightRole && diff && (
-        <CompareResult leftRole={leftRole} rightRole={rightRole} diff={diff} />
-      )}
-    </Grid>
+    </Layout>
   );
 };
 
@@ -315,5 +324,13 @@ const CompareResult: React.FC<ResultProps> = React.memo(
     </>
   ),
 );
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      roles,
+    },
+  };
+};
 
 export default Compare;
