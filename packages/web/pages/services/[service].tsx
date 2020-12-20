@@ -14,6 +14,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Layout from "../../components/Layout";
 import { specialRoleNames } from "../../constants";
+import { roles, services } from "../../lib/roles";
 import Role from "../../types/Role";
 
 const useStyles = makeStyles((theme) => ({
@@ -94,7 +95,7 @@ const PermissionTable: React.FC<RoleTableProps> = ({ service, roles }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { service: "project" } }],
+    paths: services.map((service) => ({ params: { service } })),
     fallback: false,
   };
 };
@@ -103,7 +104,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       service: params.service,
-      roles: [],
+      roles,
     },
   };
 };
