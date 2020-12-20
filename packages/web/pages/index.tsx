@@ -68,6 +68,7 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
   </Layout>
 );
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps: GetStaticProps<ServiceTableProps> = async () => {
   return {
     props: {

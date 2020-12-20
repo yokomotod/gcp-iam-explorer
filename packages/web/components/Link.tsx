@@ -6,11 +6,13 @@ const NextComposed = React.forwardRef<
   HTMLAnchorElement,
   React.PropsWithChildren<NextLinkProps>
 >((props, ref) => {
-  const { as, href, ...other } = props;
+  const { children, as, href, ...other } = props;
 
   return (
     <NextLink href={href} as={as}>
-      <a ref={ref} {...other} />
+      <a ref={ref} {...other}>
+        {children}
+      </a>
     </NextLink>
   );
 });

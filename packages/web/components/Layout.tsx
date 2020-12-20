@@ -1,6 +1,5 @@
 import { Container, makeStyles } from "@material-ui/core";
 import Header from "../components/Header";
-import Splash from "./Splash";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -15,29 +14,6 @@ const useStyles = makeStyles((theme) => ({
 
 const App: React.FC = ({ children }) => {
   const classes = useStyles();
-
-  // const [roles, setRoles] = React.useState<Role[]>([]);
-
-  // React.useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  //   (async () => {
-  //     const response = await fetch("/roles.json");
-
-  //     const contentType = response.headers.get("content-type");
-  //     if (!contentType?.includes("application/json")) {
-  //       alert("Error");
-  //       return;
-  //     }
-
-  //     const roles = (await response.json()) as Role[];
-
-  //     setRoles(roles);
-  //   })();
-  // }, []);
-
-  // if (roles.length === 0) {
-  //   return <Splash />;
-  // }
 
   return (
     <div className={classes.grow}>

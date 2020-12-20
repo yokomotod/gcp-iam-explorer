@@ -93,6 +93,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newLeftRole = rolesPlusAll.find((role) => role.name === value);
     if (newLeftRole && newLeftRole.name !== leftRole?.name) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       router.push({
         search: buildSearchParams(newLeftRole, rightRole),
       });
@@ -109,6 +110,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newRightRole = rolesPlusAll.find((role) => role.name === value);
     if (newRightRole && newRightRole.name !== rightRole?.name) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       router.push({
         search: buildSearchParams(leftRole, newRightRole),
       });
@@ -330,6 +332,7 @@ const CompareResult: React.FC<ResultProps> = React.memo(
   ),
 );
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {

@@ -93,6 +93,7 @@ type PathParams = {
   service: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
   return {
     paths: services.map((service) => ({ params: { service } })),
@@ -100,10 +101,16 @@ export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<RoleTableProps, PathParams> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<
+  RoleTableProps,
+  PathParams
+  // eslint-disable-next-line @typescript-eslint/require-await
+> = async ({ params }) => {
+  if (!params) throw new Error("never");
+
   return {
     props: {
-      service: params!.service,
+      service: params.service,
       roles,
     },
   };
