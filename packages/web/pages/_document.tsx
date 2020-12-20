@@ -1,11 +1,20 @@
 import { ServerStyleSheets } from "@material-ui/core/styles";
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
 import React from "react";
 
 export default class MyDocument extends Document {
   // `getInitialProps` belongs to `_document` (instead of `_app`),
   // it's compatible with server-side generation (SSG).
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+  static async getInitialProps(
+    ctx: DocumentContext,
+  ): Promise<DocumentInitialProps> {
     // Resolution order
     //
     // On the server:
@@ -47,5 +56,48 @@ export default class MyDocument extends Document {
         sheets.getStyleElement(),
       ],
     };
+  }
+
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          {/* Global site tag (gtag.js) - Google Analytics */}
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-YPFBWG7PD6"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-YPFBWG7PD6');
+      `,
+            }}
+          />
+
+          {/* Fonts to support Material Design */}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+
+          {/* OGP */}
+          <meta
+            property="og:image"
+            content="https://gcp-iam-explorer-263803.web.app/logo512.png"
+          />
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@yokomotod" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
