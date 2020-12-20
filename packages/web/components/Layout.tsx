@@ -1,5 +1,5 @@
 import { Container, makeStyles } from "@material-ui/core";
-import Header from '../components/Header'
+import Header from "../components/Header";
 import Splash from "./Splash";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,7 @@ const App: React.FC = ({ children }) => {
       <main>
         <div className={classes.appBarSpacer} />
         <Container maxWidth={false} className={classes.container}>
-          {children}
+          <>{children}</>
         </Container>
       </main>
     </div>
