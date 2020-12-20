@@ -12,9 +12,9 @@ import {
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { ReactComponent as GithubLogo } from "./github.svg";
-import { ReactComponent as TwitterLogo } from "./twitter.svg";
+import { default as NextLink } from "next/link";
+// import { ReactComponent as GithubLogo } from "./github.svg";
+// import { ReactComponent as TwitterLogo } from "./twitter.svg";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -80,8 +80,8 @@ const Header: React.FC = () => {
             </IconButton>
           </div>
           <Link
-            component={RouterLink}
-            to="/"
+            component={NextLink}
+            href="/"
             color="inherit"
             variant="h6"
             underline="none"
@@ -91,8 +91,8 @@ const Header: React.FC = () => {
           <div className={classes.sectionDesktop}>
             <Box ml={3}>
               <Link
-                component={RouterLink}
-                to="/"
+                component={NextLink}
+                href="/"
                 color="inherit"
                 variant="body1"
               >
@@ -101,8 +101,8 @@ const Header: React.FC = () => {
             </Box>
             <Box ml={3}>
               <Link
-                component={RouterLink}
-                to="/compare"
+                component={NextLink}
+                href="/compare"
                 color="inherit"
                 variant="body1"
               >
@@ -117,7 +117,8 @@ const Header: React.FC = () => {
               target="_blank"
               color="inherit"
             >
-              <TwitterLogo className={classes.logo} />
+              {/* <TwitterLogo className={classes.logo} /> */}
+              Twitter
             </Link>
           </Box>
           <Box ml={2}>
@@ -126,7 +127,8 @@ const Header: React.FC = () => {
               target="_blank"
               color="inherit"
             >
-              <GithubLogo className={classes.logo} />
+              {/* <GithubLogo className={classes.logo} /> */}
+              GitHub
             </Link>
           </Box>
         </Toolbar>
@@ -141,8 +143,8 @@ const Header: React.FC = () => {
           <div className={classes.appBarSpacer} />
           <List>
             <Link
-              component={RouterLink}
-              to="/"
+              component={NextLink}
+              href="/"
               color="inherit"
               variant="body1"
               underline="none"
@@ -152,8 +154,8 @@ const Header: React.FC = () => {
               </ListItem>
             </Link>
             <Link
-              component={RouterLink}
-              to="/compare"
+              component={NextLink}
+              href="/compare"
               color="inherit"
               variant="body1"
               underline="none"
