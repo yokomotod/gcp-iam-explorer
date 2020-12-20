@@ -1,11 +1,13 @@
 {
-  "name": "web",
+  "name": "@gcp-iam-explorer/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "next start",
+    "predeploy": "yarn build",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
@@ -21,6 +23,7 @@
     "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "babel-plugin-inline-react-svg": "^1.1.2",
+    "firebase-tools": "^9.0.1",
     "typescript": "^4.1.3"
   }
 }
