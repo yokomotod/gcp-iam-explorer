@@ -3,6 +3,9 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { AppProps } from "next/app";
 import React from "react";
 import "../styles/globals.css";
+import * as sentry from "../utils/sentry";
+
+sentry.init();
 
 const theme = createMuiTheme();
 
