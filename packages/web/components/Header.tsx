@@ -1,20 +1,20 @@
 import {
   AppBar,
+  Box,
   Drawer,
   IconButton,
-  Link,
-  Toolbar,
-  makeStyles,
-  Box,
+  Link as MuiLink,
   List,
   ListItem,
   ListItemText,
+  makeStyles,
+  Toolbar,
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { ReactComponent as GithubLogo } from "./github.svg";
-import { ReactComponent as TwitterLogo } from "./twitter.svg";
+import Link from "./Link";
+import GithubLogo from "./github.svg";
+import TwitterLogo from "./twitter.svg";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -79,55 +79,39 @@ const Header: React.FC = () => {
               <MenuIcon />
             </IconButton>
           </div>
-          <Link
-            component={RouterLink}
-            to="/"
-            color="inherit"
-            variant="h6"
-            underline="none"
-          >
+          <Link href="/" color="inherit" variant="h6" underline="none">
             GCP IAM Explorer
           </Link>
           <div className={classes.sectionDesktop}>
             <Box ml={3}>
-              <Link
-                component={RouterLink}
-                to="/"
-                color="inherit"
-                variant="body1"
-              >
+              <Link href="/" color="inherit" variant="body1">
                 Browse
               </Link>
             </Box>
             <Box ml={3}>
-              <Link
-                component={RouterLink}
-                to="/compare"
-                color="inherit"
-                variant="body1"
-              >
+              <Link href="/compare" color="inherit" variant="body1">
                 Compare
               </Link>
             </Box>
           </div>
           <div className={classes.grow} />
           <Box>
-            <Link
+            <MuiLink
               href="https://twitter.com/yokomotod/status/1213784807471104000"
               target="_blank"
               color="inherit"
             >
               <TwitterLogo className={classes.logo} />
-            </Link>
+            </MuiLink>
           </Box>
           <Box ml={2}>
-            <Link
+            <MuiLink
               href="https://github.com/yokomotod/gcp-iam-explorer"
               target="_blank"
               color="inherit"
             >
               <GithubLogo className={classes.logo} />
-            </Link>
+            </MuiLink>
           </Box>
         </Toolbar>
       </AppBar>
@@ -140,20 +124,13 @@ const Header: React.FC = () => {
         >
           <div className={classes.appBarSpacer} />
           <List>
-            <Link
-              component={RouterLink}
-              to="/"
-              color="inherit"
-              variant="body1"
-              underline="none"
-            >
+            <Link href="/" color="inherit" variant="body1" underline="none">
               <ListItem button>
                 <ListItemText primary={"Browse"} />
               </ListItem>
             </Link>
             <Link
-              component={RouterLink}
-              to="/compare"
+              href="/compare"
               color="inherit"
               variant="body1"
               underline="none"
