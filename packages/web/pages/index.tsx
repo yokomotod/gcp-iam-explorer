@@ -1,6 +1,5 @@
 import {
   Box,
-  Link,
   Paper,
   Table,
   TableBody,
@@ -11,8 +10,8 @@ import {
 } from "@material-ui/core";
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import { default as NextLink } from "next/link";
 import Layout from "../components/Layout";
+import Link from "../components/Link";
 import { specialRoleNames } from "../constants";
 import { roles, services } from "../lib/roles";
 import Role from "../types/Role";
@@ -55,9 +54,7 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
               return (
                 <TableRow key={service}>
                   <TableCell>
-                    <Link component={NextLink} href={`/services/${service}`}>
-                      {service}
-                    </Link>
+                    <Link href={`/services/${service}`}>{service}</Link>
                   </TableCell>
                   <TableCell>{relatedRoleNames.length}</TableCell>
                   <TableCell>{relatedRoleNames.join(", ")}</TableCell>
