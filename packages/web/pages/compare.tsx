@@ -127,7 +127,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router, forceUpdate]);
+  }, [router.events, forceUpdate]);
 
   const diff = React.useMemo(() => makeDiff(leftRole, rightRole), [
     leftRole,
