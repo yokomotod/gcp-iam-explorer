@@ -14,13 +14,16 @@ import Layout from "../components/Layout";
 import Link from "../components/Link";
 import { specialRoleNames } from "../constants";
 import { roles, services } from "../lib/roles";
-import Role from "../types/Role";
 
 type ServiceTableProps = {
-  roles: Role[];
+  services: string[];
+  relatedRoleNames: Record<string, string[]>;
 };
 
-const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
+const ServiceTable: React.FC<ServiceTableProps> = ({
+  services,
+  relatedRoleNames,
+}) => (
   <Layout>
     <Box component={Paper} p={2}>
       <Head>
@@ -37,30 +40,15 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
             </TableRow>
           </TableHead>
           <TableBody>
-            {services.map((service) => {
-              const relatedRoleNames =
-                service === "project"
-                  ? specialRoleNames.map((roleName) =>
-                      roleName.replace("roles/", ""),
-                    )
-                  : roles
-                      .filter((role) =>
-                        role.name.startsWith(`roles/${service}.`),
-                      )
-                      .map((role) =>
-                        role.name.replace(`roles/${service}.`, ""),
-                      );
-
-              return (
-                <TableRow key={service}>
-                  <TableCell>
-                    <Link href={`/services/${service}`}>{service}</Link>
-                  </TableCell>
-                  <TableCell>{relatedRoleNames.length}</TableCell>
-                  <TableCell>{relatedRoleNames.join(", ")}</TableCell>
-                </TableRow>
-              );
-            })}
+            {services.map((service) => (
+              <TableRow key={service}>
+                <TableCell>
+                  <Link href={`/services/${service}`}>{service}</Link>
+                </TableCell>
+                <TableCell>{relatedRoleNames[service].length}</TableCell>
+                <TableCell>{relatedRoleNames[service].join(", ")}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -70,9 +58,23 @@ const ServiceTable: React.FC<ServiceTableProps> = ({ roles }) => (
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps: GetStaticProps<ServiceTableProps> = async () => {
+  const relatedRoleNames: Record<string, string[]> = {};
+
+  for (const service of services) {
+    const names =
+      service === "project"
+        ? specialRoleNames.map((roleName) => roleName.replace("roles/", ""))
+        : roles
+            .filter((role) => role.name.startsWith(`roles/${service}.`))
+            .map((role) => role.name.replace(`roles/${service}.`, ""));
+
+    relatedRoleNames[service] = names;
+  }
+
   return {
     props: {
-      roles,
+      services,
+      relatedRoleNames,
     },
   };
 };

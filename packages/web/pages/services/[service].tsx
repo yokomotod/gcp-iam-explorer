@@ -28,22 +28,16 @@ const useStyles = makeStyles((theme) => ({
 
 type RoleTableProps = {
   service: string;
-  roles: Role[];
+  filteredRoles: Role[];
+  relatedPermissons: string[];
 };
 
-const PermissionTable: React.FC<RoleTableProps> = ({ service, roles }) => {
+const PermissionTable: React.FC<RoleTableProps> = ({
+  service,
+  filteredRoles,
+  relatedPermissons,
+}) => {
   const classes = useStyles();
-
-  const filteredRoles = (service === "project"
-    ? roles.filter((role) => specialRoleNames.includes(role.name))
-    : roles.filter((role) => role.name.startsWith(`roles/${service}.`))
-  ).sort((a, b) => b.includedPermissions.length - a.includedPermissions.length);
-
-  const relatedPermissons = _.chain(filteredRoles)
-    .flatMap((role) => role.includedPermissions)
-    .uniq()
-    .sort()
-    .value();
 
   return (
     <Layout>
@@ -108,10 +102,24 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   if (!params) throw new Error("never");
 
+  const { service } = params;
+
+  const filteredRoles = (service === "project"
+    ? roles.filter((role) => specialRoleNames.includes(role.name))
+    : roles.filter((role) => role.name.startsWith(`roles/${service}.`))
+  ).sort((a, b) => b.includedPermissions.length - a.includedPermissions.length);
+
+  const relatedPermissons = _.chain(filteredRoles)
+    .flatMap((role) => role.includedPermissions)
+    .uniq()
+    .sort()
+    .value();
+
   return {
     props: {
-      service: params.service,
-      roles,
+      service,
+      filteredRoles,
+      relatedPermissons,
     },
   };
 };
