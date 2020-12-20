@@ -20,10 +20,10 @@ import _ from "lodash";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import React from "react";
-// import { useHistory } from "react-router-dom";
 import Layout from "../components/Layout";
 import { roles } from "../lib/roles";
 import Role from "../types/Role";
+import { useRouter } from "next/router";
 
 type Diff = {
   leftOnly: string[];
@@ -48,10 +48,11 @@ const useForceUpdate = (): (() => void) => {
 const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
   const forceUpdate = useForceUpdate();
 
-  // const history = useHistory();
-  // const searchParams = new URLSearchParams(history.location.search);
-  const leftParam = null; // searchParams.get("left");
-  const rightParam = null; // searchParams.get("right");
+  const router = useRouter();
+  const leftParam =
+    typeof router.query.left === "string" ? router.query.left : undefined;
+  const rightParam =
+    typeof router.query.right === "string" ? router.query.right : undefined;
 
   const rolesPlusAll: Role[] = React.useMemo(
     () => [
@@ -92,9 +93,9 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newLeftRole = rolesPlusAll.find((role) => role.name === value);
     if (newLeftRole && newLeftRole.name !== leftRole?.name) {
-      // history.push({
-      //   search: buildSearchParams(newLeftRole, rightRole),
-      // });
+      router.push({
+        search: buildSearchParams(newLeftRole, rightRole),
+      });
     }
   };
 
@@ -108,19 +109,23 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
     const newRightRole = rolesPlusAll.find((role) => role.name === value);
     if (newRightRole && newRightRole.name !== rightRole?.name) {
-      // history.push({
-      //   search: buildSearchParams(leftRole, newRightRole),
-      // });
+      router.push({
+        search: buildSearchParams(leftRole, newRightRole),
+      });
     }
   };
 
-  // React.useEffect(
-  //   () =>
-  //     history.listen((_location) => {
-  //       forceUpdate();
-  //     }),
-  //   [history, forceUpdate],
-  // );
+  React.useEffect(() => {
+    const handleRouteChange = () => {
+      forceUpdate();
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router, forceUpdate]);
 
   const diff = React.useMemo(() => makeDiff(leftRole, rightRole), [
     leftRole,
@@ -175,7 +180,7 @@ const Compare: React.FC<CompareProps> = ({ roles: baseRoles }) => {
 
 const findRole = (
   roles: Role[],
-  name: string | null,
+  name: string | undefined,
   defaultName: string,
 ): Role => {
   const role =
