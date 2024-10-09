@@ -9,12 +9,30 @@ async function main() {
   const result = [];
   const allPermissions = {};
 
-  const {
-    data: { roles },
-  } = await google.iam("v1").roles.list({ auth: authClient, pageSize: 1000 });
+  const allRoles = [];
+  let pageToken;
+  for (let i = 0; ; i++) {
+    console.log(`roles.list: page=${i}`);
+    const {
+      data: { roles, nextPageToken },
+    } = await google.iam("v1").roles.list({ auth: authClient, pageSize: 1000, pageToken });
+    console.log(`roles.length = ${roles.length}`);
 
-  console.log(`roles.length = ${roles.length}`);
-  for (const role of roles) {
+    allRoles.push(...roles);
+
+    if (!nextPageToken) {
+      break;
+    }
+
+    pageToken = nextPageToken;
+
+    if (i > 10) {
+      throw new Error("Too many pages");
+    }
+  }
+
+  console.log(`allRoles.length = ${allRoles.length}`);
+  for (const role of allRoles) {
     console.log(role.name);
 
     const {
